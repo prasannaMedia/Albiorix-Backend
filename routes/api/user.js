@@ -58,6 +58,7 @@ router.post(
           { $set: userField },
           { new: "true" }
         );
+        console.log("updated")
         await user.save();
         return res.json(user);
       }
@@ -73,10 +74,12 @@ router.post(
 
 //delete user
 
-router.delete("/Email", async (req, res) => {
+router.delete("/:Email", async (req, res) => {
   try {
+    console.log("in delete")
     const user = User.findOne({ Email: req.params.Email });
     await user.remove()
+    return res.send("success");
   } catch (err) {
     res.status(500).send("server error");
   }
